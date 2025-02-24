@@ -1,260 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Crystal Quest</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donald Trump Timeline</title>
     <style>
         body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: #1a0d2b;
-            font-family: Arial, sans-serif;
-        }
-        #gameContainer {
-            position: relative;
-        }
-        #gameCanvas {
-            border: 5px solid #ffd700;
-            background: #2a1b3d;
-        }
-        #leaderboard {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            color: white;
-            background: rgba(0,0,0,0.7);
-            padding: 10px;
-            border-radius: 5px;
-        }
-        #startScreen {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.8);
             padding: 20px;
-            color: white;
+        }
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #ffd700; /* Gold line */
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        .container {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        .container::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border: 4px solid #ff4500; /* Orange marker */
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .left {
+            left: 0;
+        }
+        .right {
+            left: 50%;
+        }
+        .left::after {
+            right: -10px;
+        }
+        .right::after {
+            left: -10px;
+        }
+        .content {
+            padding: 20px;
+            background-color: #fff;
+            position: relative;
             border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .content:hover {
+            transform: scale(1.05);
+        }
+        h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        p {
+            margin: 0;
+            color: #666;
+        }
+        .title {
             text-align: center;
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 40px;
         }
-        button {
-            padding: 10px 20px;
-            margin: 5px;
-            background: #ffd700;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #ffeb3b;
+        @media screen and (max-width: 600px) {
+            .timeline::after {
+                left: 31px;
+            }
+            .container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .container::after {
+                left: 20px;
+            }
+            .right, .left {
+                left: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="gameContainer">
-        <canvas id="gameCanvas" width="800" height="600"></canvas>
-        <div id="leaderboard">Score: 0<br>Lives: 3<br>Level: 1</div>
-        <div id="startScreen">
-            <h1>Crystal Quest</h1>
-            <p>Select Control Method:</p>
-            <button onclick="startGame('keyboard')">Keyboard (Arrows)</button>
-            <button onclick="startGame('mouse')">Mouse</button>
+    <div class="title">Donald Trump: Life Timeline</div>
+    <div class="timeline">
+        <div class="container left">
+            <div class="content">
+                <h2>1946</h2>
+                <p>Born on June 14 in Queens, New York.</p>
+            </div>
+        </div>
+        <div class="container right">
+            <div class="content">
+                <h2>1968</h2>
+                <p>Graduates from Wharton; joins Trump Organization.</p>
+            </div>
+        </div>
+        <div class="container left">
+            <div class="content">
+                <h2>1976</h2>
+                <p>Opens Grand Hyatt Hotel in Manhattan.</p>
+            </div>
+        </div>
+        <div class="container right">
+            <div class="content">
+                <h2>1982</h2>
+                <p>Opens Trump Tower on Fifth Avenue.</p>
+            </div>
+        </div>
+        <div class="container left">
+            <div class="content">
+                <h2>1990</h2>
+                <p>Opens Trump Taj Mahal; faces $1B debt crisis.</p>
+            </div>
+        </div>
+        <div class="container right">
+            <div class="content">
+                <h2>2004</h2>
+                <p>Debuts "The Apprentice" on NBC.</p>
+            </div>
+        </div>
+        <div class="container left">
+            <div class="content">
+                <h2>2016</h2>
+                <p>Elected 45th U.S. President.</p>
+            </div>
+        </div>
+        <div class="container right">
+            <div class="content">
+                <h2>2020</h2>
+                <p>Loses re-election to Joe Biden.</p>
+            </div>
+        </div>
+        <div class="container left">
+            <div class="content">
+                <h2>2024</h2>
+                <p>Elected 47th U.S. President; convicted on 34 felony counts.</p>
+            </div>
         </div>
     </div>
-
-    <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        const leaderboard = document.getElementById('leaderboard');
-        const startScreen = document.getElementById('startScreen');
-
-        // Game variables
-        let player, crystals, bombs, enemies, score = 0, lives = 3, level = 1;
-        let gameRunning = false, useMouse = false;
-        const borderWidth = 5;
-
-        // Sprite class
-        class Sprite {
-            constructor(x, y, width, height, color, speed) {
-                this.x = x;
-                this.y = y;
-                this.width = width;
-                this.height = height;
-                this.color = color;
-                this.speed = speed || 0;
-            }
-
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x + this.width/2, this.y + this.height/2, this.width/2, 0, Math.PI * 2);
-                ctx.fill();
-            }
-
-            move(dx, dy) {
-                this.x += dx;
-                this.y += dy;
-                this.checkBoundaries();
-            }
-
-            checkBoundaries() {
-                this.x = Math.max(borderWidth, Math.min(canvas.width - this.width - borderWidth, this.x));
-                this.y = Math.max(borderWidth, Math.min(canvas.height - this.height - borderWidth, this.y));
-            }
-        }
-
-        // Initialize game
-        function initGame() {
-            player = new Sprite(canvas.width/2, canvas.height/2, 30, 30, '#00ff00', 5);
-            spawnCrystals();
-            spawnBombs();
-            spawnEnemies();
-            updateLeaderboard();
-        }
-
-        // Spawn functions
-        function spawnCrystals() {
-            crystals = [];
-            for (let i = 0; i < 5 + level; i++) {
-                crystals.push(new Sprite(
-                    Math.random() * (canvas.width - 20 - borderWidth*2) + borderWidth,
-                    Math.random() * (canvas.height - 20 - borderWidth*2) + borderWidth,
-                    20, 20, '#00ffff'
-                ));
-            }
-        }
-
-        function spawnBombs() {
-            bombs = [];
-            for (let i = 0; i < 3 + level; i++) {
-                bombs.push(new Sprite(
-                    Math.random() * (canvas.width - 20 - borderWidth*2) + borderWidth,
-                    Math.random() * (canvas.height - 20 - borderWidth*2) + borderWidth,
-                    20, 20, '#ff0000'
-                ));
-            }
-        }
-
-        function spawnEnemies() {
-            enemies = [];
-            for (let i = 0; i < level; i++) {
-                enemies.push(new Sprite(
-                    Math.random() * (canvas.width - 20 - borderWidth*2) + borderWidth,
-                    Math.random() * (canvas.height - 20 - borderWidth*2) + borderWidth,
-                    25, 25, '#ff00ff',
-                    2 + level * 0.5
-                ));
-            }
-        }
-
-        // Collision detection
-        function checkCollision(sprite1, sprite2) {
-            const dx = (sprite1.x + sprite1.width/2) - (sprite2.x + sprite2.width/2);
-            const dy = (sprite1.y + sprite1.height/2) - (sprite2.y + sprite2.height/2);
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            return distance < (sprite1.width/2 + sprite2.width/2);
-        }
-
-        // Game loop
-        function gameLoop() {
-            if (!gameRunning) return;
-
-            // Clear canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Draw player
-            player.draw();
-
-            // Handle crystals
-            crystals.forEach((crystal, index) => {
-                crystal.draw();
-                if (checkCollision(player, crystal)) {
-                    crystals.splice(index, 1);
-                    score += 10;
-                    if (crystals.length === 0) {
-                        level++;
-                        spawnCrystals();
-                        spawnBombs();
-                        spawnEnemies();
-                    }
-                }
-            });
-
-            // Handle bombs
-            bombs.forEach(bomb => {
-                bomb.draw();
-                if (checkCollision(player, bomb)) {
-                    lives--;
-                    resetPlayer();
-                    if (lives <= 0) gameOver();
-                }
-            });
-
-            // Handle enemies
-            enemies.forEach(enemy => {
-                enemy.draw();
-                enemy.move(
-                    (Math.random() - 0.5) * enemy.speed,
-                    (Math.random() - 0.5) * enemy.speed
-                );
-                if (checkCollision(player, enemy)) {
-                    lives--;
-                    resetPlayer();
-                    if (lives <= 0) gameOver();
-                }
-            });
-
-            updateLeaderboard();
-            requestAnimationFrame(gameLoop);
-        }
-
-        // Player controls
-        const keys = {};
-        document.addEventListener('keydown', e => keys[e.key] = true);
-        document.addEventListener('keyup', e => keys[e.key] = false);
-
-        function handleKeyboard() {
-            if (keys['ArrowUp']) player.move(0, -player.speed);
-            if (keys['ArrowDown']) player.move(0, player.speed);
-            if (keys['ArrowLeft']) player.move(-player.speed, 0);
-            if (keys['ArrowRight']) player.move(player.speed, 0);
-        }
-
-        canvas.addEventListener('mousemove', e => {
-            if (useMouse && gameRunning) {
-                const rect = canvas.getBoundingClientRect();
-                player.x = e.clientX - rect.left - player.width/2;
-                player.y = e.clientY - rect.top - player.height/2;
-                player.checkBoundaries();
-            }
-        });
-
-        // Game state management
-        function startGame(controlMethod) {
-            useMouse = controlMethod === 'mouse';
-            startScreen.style.display = 'none';
-            gameRunning = true;
-            initGame();
-            gameLoop();
-            if (!useMouse) setInterval(handleKeyboard, 1000/60);
-        }
-
-        function resetPlayer() {
-            player.x = canvas.width/2;
-            player.y = canvas.height/2;
-        }
-
-        function gameOver() {
-            gameRunning = false;
-            startScreen.innerHTML = `<h1>Game Over</h1><p>Score: ${score}</p><button onclick="location.reload()">Restart</button>`;
-            startScreen.style.display = 'block';
-        }
-
-        function updateLeaderboard() {
-            leaderboard.innerHTML = `Score: ${score}<br>Lives: ${lives}<br>Level: ${level}`;
-        }
-    </script>
 </body>
 </html>
