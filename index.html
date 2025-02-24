@@ -3,158 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donald Trump Timeline</title>
+    <title>Car Dodging Game</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
+        * {
             margin: 0;
-            padding: 20px;
-        }
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background-color: #ffd700; /* Gold line */
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
-        }
-        .container {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
+            padding: 0;
             box-sizing: border-box;
         }
-        .container::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #fff;
-            border: 4px solid #ff4500; /* Orange marker */
-            top: 15px;
-            border-radius: 50%;
-            z-index: 1;
-        }
-        .left {
-            left: 0;
-        }
-        .right {
-            left: 50%;
-        }
-        .left::after {
-            right: -10px;
-        }
-        .right::after {
-            left: -10px;
-        }
-        .content {
-            padding: 20px;
-            background-color: #fff;
-            position: relative;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-        .content:hover {
-            transform: scale(1.05);
-        }
-        h2 {
-            margin: 0 0 10px 0;
-            color: #333;
-        }
-        p {
-            margin: 0;
-            color: #666;
-        }
-        .title {
+
+        body {
             text-align: center;
-            font-size: 2em;
-            color: #333;
-            margin-bottom: 40px;
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: white;
         }
-        @media screen and (max-width: 600px) {
-            .timeline::after {
-                left: 31px;
-            }
-            .container {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
-            }
-            .container::after {
-                left: 20px;
-            }
-            .right, .left {
-                left: 0;
-            }
+
+        .game-container {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            margin: 20px auto;
+            border: 4px solid white;
+            background: linear-gradient(#444, #222);
+            overflow: hidden;
+        }
+
+        .player {
+            position: absolute;
+            width: 50px;
+            height: 80px;
+            background: red;
+            bottom: 20px;
+            left: 175px;
+            border-radius: 5px;
+        }
+
+        .obstacle {
+            position: absolute;
+            width: 50px;
+            height: 80px;
+            background: blue;
+            top: -100px;
+            border-radius: 5px;
+        }
+
+        .bullet {
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            background: yellow;
+            border-radius: 5px;
+        }
+
+        .controls {
+            margin-top: 10px;
+        }
+
+        .controls button {
+            font-size: 20px;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background: #ffcc00;
+            color: black;
+        }
+
+        #score, #level, #shots {
+            font-size: 20px;
+            margin: 10px;
+        }
+
+        .leaderboard {
+            margin-top: 20px;
+            text-align: left;
+            width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .leaderboard h2 {
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <div class="title">Donald Trump: Life Timeline</div>
-    <div class="timeline">
-        <div class="container left">
-            <div class="content">
-                <h2>1946</h2>
-                <p>Born on June 14 in Queens, New York.</p>
-            </div>
-        </div>
-        <div class="container right">
-            <div class="content">
-                <h2>1968</h2>
-                <p>Graduates from Wharton; joins Trump Organization.</p>
-            </div>
-        </div>
-        <div class="container left">
-            <div class="content">
-                <h2>1976</h2>
-                <p>Opens Grand Hyatt Hotel in Manhattan.</p>
-            </div>
-        </div>
-        <div class="container right">
-            <div class="content">
-                <h2>1982</h2>
-                <p>Opens Trump Tower on Fifth Avenue.</p>
-            </div>
-        </div>
-        <div class="container left">
-            <div class="content">
-                <h2>1990</h2>
-                <p>Opens Trump Taj Mahal; faces $1B debt crisis.</p>
-            </div>
-        </div>
-        <div class="container right">
-            <div class="content">
-                <h2>2004</h2>
-                <p>Debuts "The Apprentice" on NBC.</p>
-            </div>
-        </div>
-        <div class="container left">
-            <div class="content">
-                <h2>2016</h2>
-                <p>Elected 45th U.S. President.</p>
-            </div>
-        </div>
-        <div class="container right">
-            <div class="content">
-                <h2>2020</h2>
-                <p>Loses re-election to Joe Biden.</p>
-            </div>
-        </div>
-        <div class="container left">
-            <div class="content">
-                <h2>2024</h2>
-                <p>Elected 47th U.S. President; convicted on 34 felony counts.</p>
-            </div>
-        </div>
+
+    <h1>Car Dodging Game</h1>
+    <div class="game-container">
+        <div class="player"></div>
     </div>
+
+    <div id="score">Score: 0</div>
+    <div id="level">Level: 1</div>
+    <div id="shots">Shots Available: 0</div>
+
+    <div class="controls">
+        <button onclick="moveLeft()">⬅ Left</button>
+        <button onclick="shoot()">🔫 Shoot</button>
+        <button onclick="moveRight()">➡ Right</button>
+    </div>
+
+    <div class="leaderboard">
+        <h2>Leaderboard</h2>
+        <ul id="leaderboard-list"></ul>
+    </div>
+
+    <script>
+        let player = document.querySelector('.player');
+        let gameContainer = document.querySelector('.game-container');
+        let scoreDisplay = document.getElementById("score");
+        let levelDisplay = document.getElementById("level");
+        let shotsDisplay = document.getElementById("shots");
+        let leaderboardList = document.getElementById("leaderboard-list");
+
+        let playerX = 175;
+        let score = 0;
+        let level = 1;
+        let speed = 2;
+        let shotCount = 0;
+        let gameInterval;
+        let obstacles = [];
+        let bullets = [];
+        let lastShotTime = 0;
+
+        function moveLeft() {
+            if (playerX > 50) playerX -= 50;
+            player.style.left = playerX + "px";
+        }
+
+        function moveRight() {
+            if (playerX < 300) playerX += 50;
+            player.style.left = playerX + "px";
+        }
+
+        function shoot() {
+            if (shotCount > 0) {
+                shotCount--;
+                shotsDisplay.innerText = "Shots Available: " + shotCount;
+                let bullet = document.createElement('div');
+                bullet.classList.add('bullet');
+                bullet.style.left = (playerX + 20) + "px";
+                bullet.style.bottom = "100px";
+                gameContainer.appendChild(bullet);
+                bullets.push(bullet);
+            }
+        }
+
+        function createObstacle() {
+            let obstacle = document.createElement('div');
+            obstacle.classList.add('obstacle');
+            obstacle.style.left = Math.floor(Math.random() * 3) * 100 + "px";
+            obstacle.style.top = "-80px";
+            gameContainer.appendChild(obstacle);
+            obstacles.push(obstacle);
+        }
+
+        function updateGame() {
+            score++;
+            scoreDisplay.innerText = "Score: " + score;
+            if (score % 30 === 0) {
+                level++;
+                speed += 0.5;
+                levelDisplay.innerText = "Level: " + level;
+            }
+            if (score % 10 === 0) {
+                shotCount++;
+                shotsDisplay.innerText = "Shots Available: " + shotCount;
+            }
+            obstacles.forEach((obs, index) => {
+                let obsTop = parseInt(obs.style.top);
+                obs.style.top = (obsTop + speed) + "px";
+                if (obsTop > 600) {
+                    obs.remove();
+                    obstacles.splice(index, 1);
+                }
+                if (collision(player, obs)) {
+                    endGame();
+                }
+            });
+            bullets.forEach((bullet, index) => {
+                let bulletBottom = parseInt(bullet.style.bottom);
+                bullet.style.bottom = (bulletBottom + 5) + "px";
+                if (bulletBottom > 600) {
+                    bullet.remove();
+                    bullets.splice(index, 1);
+                }
+                obstacles.forEach((obs, obsIndex) => {
+                    if (collision(bullet, obs)) {
+                        bullet.remove();
+                        obs.remove();
+                        bullets.splice(index, 1);
+                        obstacles.splice(obsIndex, 1);
+                    }
+                });
+            });
+        }
+
+        function collision(a, b) {
+            let aRect = a.getBoundingClientRect();
+            let bRect = b.getBoundingClientRect();
+            return !(aRect.right < bRect.left || 
+                     aRect.left > bRect.right || 
+                     aRect.bottom < bRect.top || 
+                     aRect.top > bRect.bottom);
+        }
+
+        function endGame() {
+            clearInterval(gameInterval);
+            alert("Game Over! Score: " + score);
+            updateLeaderboard(score);
+            resetGame();
+        }
+
+        function resetGame() {
+            score = 0;
+            level = 1;
+            speed = 2;
+            shotCount = 0;
+            obstacles.forEach(obs => obs.remove());
+            bullets.forEach(bullet => bullet.remove());
+            obstacles = [];
+            bullets = [];
+            scoreDisplay.innerText = "Score: 0";
+            levelDisplay.innerText = "Level: 1";
+            shotsDisplay.innerText = "Shots Available: 0";
+            gameInterval = setInterval(updateGame, 100);
+        }
+
+        function updateLeaderboard(score) {
+            let listItem = document.createElement("li");
+            listItem.innerText = "Score: " + score;
+            leaderboardList.appendChild(listItem);
+        }
+
+        gameInterval = setInterval(updateGame, 100);
+        setInterval(createObstacle, 1000);
+    </script>
+
 </body>
 </html>
